@@ -1,4 +1,5 @@
-﻿using Telegram.Bot;
+﻿using System.Data.Common;
+using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
@@ -7,7 +8,7 @@ namespace TelegramBotConsoleApp
 {
 	internal class Program
 	{
-		static TelegramBotClient Bot = new TelegramBotClient("7490122706:AAF0Tv-9y_gKlIVDH7rpOYjykcMqc31WxI8");
+		static TelegramBotClient Bot = new TelegramBotClient("Bot-Token");
 		static HttpClient httpClient = new HttpClient();
 		static async Task Main(string[] args)
 		{
@@ -39,22 +40,27 @@ namespace TelegramBotConsoleApp
 					cancellationToken: cancellationToken
 				);
 			}
-			if (update.Type == UpdateType.Message && update.Message!.Type == MessageType.Audio)
-			{
-				var chatId = update.Message.Chat.Id;
-				var messageAudio = update.Message.Audio;
+			//if (update.Type == UpdateType.Message && update.Message!.Type == MessageType.Audio)
+			//{
+			//	var chatId = update.Message.Chat.Id;
+			//	var messageAudio = update.Message.Audio;
 
-				Console.WriteLine($"Sending audio message for User {update.Message.Chat.Username}:{messageAudio}");
+			//	Console.WriteLine($"Sending audio message for User {update.Message.Chat.Username}:{messageAudio}");
 
-				var audioUrl = "https://telegrambots.github.io/book/docs/audio-guitar.mp3";
-				var fileStream = await httpClient.GetStreamAsync(audioUrl);
+			//	var audioUrl = "https://telegrambots.github.io/book/docs/audio-guitar.mp3";
+			//	var fileStream = await httpClient.GetStreamAsync(audioUrl);
 
-				//await botClient.SendAudioAsync(
-				//	chatId: chatId,
-				//	audio: new InputFile(fileStream,"audio-guitar.mp3"),
-				//	cancellationToken: cancellationToken
-				//);
-			}
+			//	await botClient.SendAudioAsync(
+			//		chatId: chatId,
+			//		audio: new InputFile(fileStream, "audio-guitar.mp3"),
+			//		cancellationToken: cancellationToken
+			//	);
+			//}
+		}
+
+		public static void OnUpdate(UpdatedEventArgs e)
+		{
+            Console.WriteLine("hi, hello group");
 		}
 		public static Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
 		{
